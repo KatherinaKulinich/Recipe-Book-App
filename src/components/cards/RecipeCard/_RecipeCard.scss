@@ -1,0 +1,130 @@
+@use '../../../styles/variables';
+@use '../../../styles/mixins';
+
+.recipeCard {
+    text-decoration: none;
+    display: block;
+    height: 100%;
+    width: 100%;
+    
+    &__main {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+    
+        &::before {
+            content: '';
+            @include gradientBorder(10px, 101%, 101%, -0.5%, -0.5%);
+        }
+
+        &:hover::before {
+            filter: blur(10px);
+        }
+    }
+
+    &__front {
+        z-index: 10;
+        padding: 20px;
+        width: 320px;
+        height: 100%;
+        border-radius: 10px;
+        @include column(40px);
+        justify-content: center;
+
+        &--dark {
+            background-color: $bgColorDarkSecondary;
+            color: $textColorLight;
+        }
+
+        &--light {
+            background-color: $bgColorLight;
+            color: $textColorDark;
+        }
+    }
+
+    &__image  {
+        height: 280px;
+
+        & > img {
+            width: 100%;
+            height: 100%;
+            max-height: 280px;
+        }
+
+    }
+
+
+
+    &__content {
+        width: 100%;
+        height: 100%;
+        @include column(40px);
+        align-items: center;
+        position: relative; 
+    }
+
+    &__title {
+        @include font($titleFont, 700, 34px, 37px);
+        @include goldText;
+        position: relative;
+        text-align: center;
+        
+        &::before {
+            @include spoon;
+        }
+    }
+
+    &__tagsList {
+        width: 100%;
+        @include center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    &__created {
+        width: 100%;
+        @include between;
+
+        & > div {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+    }
+
+    &__created-text {
+        @include font($textFont, 400, 14px, 19px);
+        color: $colorGoldMedium;
+    }
+
+    &__flag {
+        @include size(40px, 40px);
+        position: absolute;
+        top: -45px;
+        right: 10px;
+ 
+        &--added svg path {
+            fill: #9f7928;
+        }
+
+    }
+
+    &__control {
+        width: 100%;
+        padding-top: 15px;
+        border-top: $borderBottom;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        & > button {
+            background-color: transparent;
+            border: none;
+            @include font($titleFont, 700, 24px, 27px);
+            @include goldText;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+    }
+}

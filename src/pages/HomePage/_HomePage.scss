@@ -1,0 +1,42 @@
+@use '../../styles/variables';
+@use '../../styles/mixins';
+@use "sass:map";
+
+$screen: ("tablet": 768px,
+          "laptop": 1024px,
+          "desktop-hd": 1240px,
+          "desktop-sd": 1440px);
+
+.homepage {
+    padding: 90px 0;
+    @include column(80px);
+
+    &__title {
+        text-align: center;
+        position: relative;
+
+        &::before {
+            @include spoon;
+        }
+    }
+
+    &__title {
+        @include textTitleMobile;
+        @include goldText;
+    }
+
+    &__contentList {
+        @include column(60px);
+    }
+}
+
+
+
+@media (min-width: map.get($screen, laptop))  {
+    .homepage {
+
+        &__title {
+            @include textTitleDesktop;
+        }
+    }
+}

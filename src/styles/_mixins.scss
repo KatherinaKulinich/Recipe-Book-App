@@ -1,0 +1,103 @@
+@use './variables';
+
+@mixin paddingYY($padTop, $padBottom) {
+    padding-top: $padTop;
+    padding-bottom: $padBottom;
+}
+
+@mixin marginX($marg) {
+    margin-right: $marg;
+    margin-left: $marg;
+}
+
+
+@mixin goldText {
+    background: $gold;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@mixin font($font, $fw, $fs, $lh) {
+    font-family: $font;
+    font-size: $fs;
+    font-weight: $fw;
+    line-height: $lh;
+}
+
+@mixin textTitleDesktop {
+    @include font($titleFont, 700, 54px, 64px);
+}
+@mixin textTitleMobile {
+    @include font($titleFont, 700, 34px, 44px);
+}
+
+
+@mixin textSubtitleDesktop {
+    @include font($titleFont, 700, 42px, 52px);
+}
+@mixin textSubtitleMobile {
+    @include font($titleFont, 700, 28px, 38px);
+}
+
+
+@mixin textDesktop {
+    @include font($textFont, 400, 18px, 24px);
+}
+@mixin textMobile {
+    @include font($textFont, 400, 14px, 21px);
+}
+
+
+
+
+
+@mixin bgImage($url) {
+    background-image: url("#{$url}");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@mixin size($w, $h) {
+    width: $w;
+    height: $h;
+}
+
+
+
+@mixin column($gap) {
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+}
+
+@mixin between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@mixin center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+@mixin gradientBorder($radius, $width, $height, $coordTop, $coordLeft) {
+    @include size($width, $height);
+    border-radius: $radius;
+    background: $gold;
+    position: absolute;
+    z-index: -1;
+    top: $coordTop;
+    left: $coordLeft;
+}
+
+@mixin spoon {
+    content: url('./assets/svg/spoon.svg');
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+}

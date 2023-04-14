@@ -1,0 +1,16 @@
+@use '../../../styles/variables';
+@use '../../../styles/mixins';
+
+.backButton {
+    padding: 10px 35px;
+    background-color: transparent;
+    border: 1px solid #FFFFFF;
+    color: #FFFFFF;
+    transition: all 1s;
+    border-radius: 5px;
+    @include textDesktop;
+
+    &:hover {
+        background-color: rgba($color: #FFFFFF, $alpha: .2);
+    }
+}

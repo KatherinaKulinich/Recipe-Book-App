@@ -1,0 +1,41 @@
+@use '../styles/variables';
+
+.body {
+    width: 100%;
+    font-family: $textFont;
+
+    &--dark {
+        background-color: $bgColorDarkSecondary;
+    }
+    &--light {
+        background-color: $bgColorLight;
+    }
+
+    &__header {
+
+        &--dark {
+            background-color: $bgColorDark;
+        }
+        &--light {
+            background-color: $bgColorLightSecondary;
+        }
+    }
+
+    &__nav {
+        background-color: $colorGoldLight;
+    }
+
+    &__main {
+        min-height: 100vh;
+    }
+
+    &__footer {
+
+        &--dark {
+            background-color: $bgColorDark;
+        }
+        &--light {
+            background-color: $bgColorLightSecondary;
+        }
+    }
+}

@@ -1,0 +1,54 @@
+@use './variables';
+@use './mixins';
+@use "sass:map";
+
+$screen: ("tablet": 768px,
+          "laptop": 1024px,
+          "desktop-hd": 1240px,
+          "desktop-sd": 1440px);
+
+* {
+    box-sizing: border-box;
+}
+
+
+p,
+h1,
+h2,
+h3,
+h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+
+.wrapper {
+    @include marginX(15px);
+}
+
+
+
+@media (min-width: map.get($screen, tablet)) {
+    .wrapper {
+       @include marginX(60px);
+    }
+}
+@media (min-width: map.get($screen, laptop)) {
+    .wrapper {
+        @include marginX(90px);
+    }
+}
+@media (min-width: map.get($screen, desktop-hd)) {
+    .wrapper {
+        @include marginX(120px);
+    }
+}
+@media (min-width: map.get($screen, desktop-sd)) {
+    .wrapper {
+        margin-right: auto;
+        margin-left: auto;
+        width: 1300px;
+    }
+}
+
+

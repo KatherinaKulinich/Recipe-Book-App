@@ -1,0 +1,92 @@
+@use "sass:map";
+
+$screen: ("tablet": 768px,
+          "laptop": 1024px,
+          "desktop-hd": 1240px,
+          "desktop-sd": 1440px);
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+
+    &__userInfo,
+    &__content {
+        display: flex;
+        align-items: center;
+    }
+
+
+    &__theme, 
+    &__user {
+        display: none;
+    }
+    
+    &__content {
+        gap: 60px;
+    }
+
+    &__menuMobile  {
+        border: none;
+        background-color: transparent;
+
+        & svg path {
+            fill: $colorGoldLight;
+        }
+
+        &:hover svg path {
+            fill: $colorGoldMedium;
+        }
+    }
+
+    &__userAvatar {
+        @include size(30px, 30px);
+    }
+
+    &__text {
+        @include font($textFont, 400, 14px, 17px);
+        color: $textColorDark;
+    }
+}
+
+
+@media (min-width: map.get($screen, tablet)) {
+    .header{
+        &__theme, 
+        &__user {
+            display: flex;
+        }
+
+
+        &__menuMobile {
+            display: none;
+        }
+
+        &__content {
+            display: grid;
+            grid-template-columns: auto;
+            grid-template-rows: auto auto;
+            gap: 25px;
+        }
+
+        &__theme {
+            grid-row: 1/2;
+            justify-self: end;
+        }
+
+        &__user {
+            grid-row: 2/3;
+        }
+    }
+}
+
+@media (min-width: map.get($screen, laptop)) {
+    .header {
+        &__content {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+    }
+}

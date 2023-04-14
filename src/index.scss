@@ -1,0 +1,47 @@
+@import './styles/normalize';
+@import './styles/variables';
+@import './styles/mixins';
+@import './styles/fonts';
+@import './styles/general';
+@import './styles/body';
+
+
+@import './components/Form/Form';
+@import './components/Header/MainHeader/MainHeader';
+@import './components/ThemeSwitch/ThemeSwitch';
+@import './components/Header/Navigation/Navigation';
+@import './components/Footer/Footer';
+@import './components/cards/CategoryCard/CategoryCard';
+@import './components/BonAppetitSection/BonAppetitSection';
+@import './components/Tag/Tag';
+@import './components/Logo/Logo';
+@import './components/buttons/Button/Button';
+@import './components/buttons/BackButton/BackButton';
+@import './components/cards/RecipeCard/RecipeCard';
+@import './components/RecipeDetails/RecipeDetails';
+@import './components/buttons/ButtonDetails/ButtonDetails';
+@import './components/buttons/FilterButton/FilterButton';
+@import './components/buttons/RoundedButton/RoundedButton';
+@import './components/ModalForEditing/ModalForEditing';
+@import './components/FormField/FormField';
+@import './components/NavList/NavList';
+@import './components/Auth/Auth.scss';
+@import './components/cards/HomeCard/HomeCard';
+@import './components/ImageBackground/ImageBackground';
+@import './components/LogForm/LogForm';
+@import './components/Drawer/Drawer';
+@import './components/MenuMobile/MenuMobile';
+
+
+
+@import './pages/HomePage/HomePage';
+@import './pages/CategoriesPage/CategoriesPage';
+@import './pages/RecipesListPage/RecipesListPage.scss';
+@import './pages/404Page/404';
+@import './pages/FavoritesRecipesPage/FavoritesRecipesPage';
+@import './pages/MyRecipesPage/MyRecipesPage';
+@import './pages/PopularRecipesPage/PopularRecipesPage';
+
+
+
+

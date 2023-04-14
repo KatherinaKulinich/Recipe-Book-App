@@ -1,0 +1,45 @@
+@use '../../styles/variables';
+@use '../../styles/mixins';
+@use "sass:map";
+
+$screen: ("tablet": 768px,
+          "laptop": 1024px,
+          "desktop-hd": 1240px,
+          "desktop-sd": 1440px);
+
+.favorites {
+    @include paddingYY(90px, 130px);
+    @include column(70px);
+    align-items: center;
+
+    &__title {
+        @include textTitleMobile;
+        @include goldText;
+        position: relative;
+
+        &::before {
+            @include spoon;
+        }
+    }
+
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 60px;
+    }
+
+    &__text {
+        @include textTitleMobile;
+        color: $colorGoldLight;
+        text-align: center;
+    }
+}
+
+@media (min-width: map.get($screen, laptop)) {
+    .favorites {
+        &__title {
+            @include textTitleDesktop;
+        }
+    }
+}

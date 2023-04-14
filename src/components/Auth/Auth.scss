@@ -1,0 +1,30 @@
+@use '../../styles/variables';
+@use '../../styles/mixins';
+
+.auth {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    &--dark {
+        color: $textColorLight;
+    }
+    &--light {
+        color: $textColorDark;
+    }
+
+    &__userInfo {
+       display: flex;
+       align-items: center;
+       gap: 10px;
+    }
+
+    &__text {
+        @include font($textFont, 400, 14px, 18px);
+    }
+
+    &__userAvatar {
+        @include size(40px, 40px);
+        border-radius: 50%;
+    }
+}

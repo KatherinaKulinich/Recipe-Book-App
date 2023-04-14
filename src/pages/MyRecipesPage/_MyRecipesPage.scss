@@ -1,0 +1,83 @@
+@use '../../styles/variables';
+@use '../../styles/mixins';
+@use "sass:map";
+
+$screen: ("tablet": 768px,
+          "laptop": 1024px,
+          "desktop-hd": 1240px,
+          "desktop-sd": 1440px);
+
+
+.myRecipes {
+    @include paddingYY(90px, 130px);
+    @include column(70px);
+    align-items: center;
+
+    &__header {
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows:  auto auto auto;
+        gap: 50px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__controlButtons  {
+        grid-row: 2/3;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    &__categoriesFilter {
+        grid-row: 3/4;
+    }
+
+    &__title {
+        grid-row: 1/2;
+        @include textTitleMobile;
+        @include goldText;
+        position: relative;
+
+        &::before {
+            @include spoon;
+        }
+    }
+
+
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 60px;
+    }
+
+    &__text {
+        @include textTitleMobile;
+        color: $colorGoldLight;
+        text-align: center;
+    }
+}
+
+
+
+@media (min-width: map.get($screen, tablet)) {
+    .myRecipes {
+        &__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+
+}
+@media (min-width: map.get($screen, laptop)) {
+    .myRecipes {
+        gap: 120px;
+        
+        &__title {
+            @include textTitleDesktop;
+        }
+    }
+}

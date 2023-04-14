@@ -1,0 +1,20 @@
+@use '../../styles/variables';
+@use '../../styles/mixins';
+
+.background {
+    width: 100%;
+    min-height: 100vh;
+    @include bgImage('./assets/images/bg.jpg');
+    background-size: cover;
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(332deg, rgba(26, 25, 19, .9) 40%, rgba(144, 143, 141, .6) 90%);
+    }
+}

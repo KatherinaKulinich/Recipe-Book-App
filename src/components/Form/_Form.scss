@@ -1,0 +1,54 @@
+@use '../../styles/variables';
+@use '../../styles/mixins';
+
+
+.form {
+    @include column(20px);
+    align-items: center;
+    width: 100%;
+
+    &__logButton {
+        background-color: $colorGoldLight;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 3px;
+        cursor: pointer;
+        
+        @include textDesktop;
+        color: #FFFFFF;
+        transition: all 1s;
+
+        &:hover {
+            background-color: $colorGoldMedium;
+        }
+    }
+
+    &__text {
+        @include textDesktop;
+        color: #FFFFFF;
+    }
+
+    &__buttonsGroup {
+        @include column(20px);
+    }
+
+    &__button {
+        padding: 12px 30px;
+        border-radius: 3px;
+        cursor: pointer;
+        
+        @include textDesktop;
+        color: #FFFFFF;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid #FFFFFF;
+        transition: all 1s;
+
+        &:hover {
+            background-color: rgba($color: #FFFFFF, $alpha: .2);
+        }
+    }
+}
+

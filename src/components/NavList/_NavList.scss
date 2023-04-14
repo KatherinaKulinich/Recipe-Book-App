@@ -1,0 +1,59 @@
+@use '../../styles/variables';
+@use '../../styles/mixins';
+@use "sass:map";
+
+$screen: ("tablet": 768px,
+          "laptop": 1024px,
+          "desktop-hd": 1240px,
+          "desktop-sd": 1440px);
+
+.nav {
+
+    &--dark a:not(.nav__link--active) {
+        color: $textColorLight;
+    }
+
+    &--light a:not(.nav__link--active) {
+        color: $textColorDark;
+    }
+
+    &__link {
+        @include textMobile;
+        text-decoration: none;
+        text-transform: uppercase;
+        position: relative;
+
+        &::after {
+            content: '';
+            @include size(1px, 2px);
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 25px;
+            transition: width 0.5s ease, background-color 1s ease;;
+            margin: 0 auto;
+        }
+
+        &:not(.nav__link--active):hover {
+            transition: color 1s ease;
+            color: $colorGoldMedium;
+
+            &::after {
+                width: 100%;
+                background-color: $colorGoldMedium;
+            }
+        }
+
+        &--active  {
+            color: #8f7c51;
+        }
+    }
+}
+
+@media (min-width: map.get($screen, desktop-hd)) {
+    .nav {
+        &__link {
+            @include textDesktop;
+        }
+    }
+}

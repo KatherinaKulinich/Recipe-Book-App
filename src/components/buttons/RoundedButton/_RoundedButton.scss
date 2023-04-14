@@ -1,0 +1,21 @@
+@use '../../../styles/variables';
+@use '../../../styles/mixins';
+
+
+.roundedButton {
+    position: relative;
+    z-index: 10;
+    width: 70px;
+    height: 70px;
+    background-color: transparent;
+    border-radius: 50%;
+    border: 2px solid transparent;
+
+    &--light {
+        background: radial-gradient($bgColorLight, $bgColorLight) padding-box, radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%) border-box;
+    }
+
+    &--dark {
+        background: radial-gradient($bgColorDarkSecondary, $bgColorDarkSecondary) padding-box, radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%) border-box;
+    }
+}

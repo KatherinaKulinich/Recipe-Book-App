@@ -1,0 +1,60 @@
+@use '../../styles/variables';
+@use '../../styles/mixins'; 
+@use "sass:map";
+
+$screen: ("tablet": 768px,
+          "laptop": 1024px,
+          "desktop-hd": 1240px,
+          "desktop-sd": 1440px);
+
+
+.formField {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+    & > label {
+        color: $colorGoldLight;
+        @include textMobile;
+        max-width: 100px;
+    }
+
+    & > input {
+        width: 100%;
+        max-width: 400px;
+        padding: 10px;
+        @include font($textFont, 400, 15px, 19px);
+        color: #FFFFFF;
+        border-radius: 3px;
+        border: none;
+        background-color: rgba($color: #FFFFFF, $alpha: .3);
+        caret-color: $colorGoldMedium;
+        
+
+        &::placeholder {
+            color: $colorGoldLight;
+        }
+
+        &:focus {
+            outline: 2px solid $colorGoldMedium;
+        }
+    }
+}
+
+@media (min-width: map.get($screen, laptop)) {
+    .formField {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        & > label {
+            @include textDesktop;
+        }
+
+        & > input {
+            width: 70%;
+            max-width: none;
+        }
+    }
+}

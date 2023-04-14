@@ -1,0 +1,70 @@
+@use '../../styles/variables';
+@use '../../styles/mixins';
+@use "sass:map";
+
+$screen: ("tablet": 768px,
+          "laptop": 1024px,
+          "desktop-hd": 1240px,
+          "desktop-sd": 1440px);
+
+
+.menuMobile {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba($color: #000000, $alpha: .8);
+    z-index: 20;
+
+    
+    &__popup {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        
+        height: auto;
+        border-top-right-radius: 25px;
+        border-top-left-radius: 25px;
+        padding: 30px;
+
+        &--dark {
+            background-color: $bgColorDark;
+        }
+
+        &--light {
+            background-color: $bgColorLight;
+        }
+    }
+
+    &__content {
+        @include column(40px);
+        align-items: center;
+    }
+
+    &__logoSection {
+        width: 100%;
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        padding-bottom: 15px;
+        border-bottom: $borderBottom;
+    }
+
+    &__closeButton {
+        background-color: transparent;
+        border: none;
+
+        &:hover svg path {
+            stroke: $colorGoldMedium;
+        }
+        & svg path {
+            stroke: $colorGoldDark;
+        }
+    }
+
+    &__navigation {
+        @include column(20px);
+    }
+}

@@ -1,0 +1,68 @@
+@use '../../../styles/variables';
+@use '../../../styles/mixins';
+@use "sass:map";
+
+$screen: ("tablet": 768px,
+          "laptop": 1024px,
+          "desktop-hd": 1240px,
+          "desktop-sd": 1440px);
+
+
+.homecard {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+
+    &--dark {
+        color: $textColorLight;
+    }
+
+    &--light {
+        color: $textColorDark;
+    }
+     
+    &__image {
+       @include size(300px, 200px);
+    }
+
+    &__text {
+        @include textMobile;
+        position: relative;
+        text-align: center;
+       
+        &::before {
+            @include spoon;
+        }
+    }
+}
+
+@media (min-width: map.get($screen, tablet))  {
+    .homecard {
+
+        &__image {
+            @include size(400px, 280px);
+        }
+    }
+}
+
+@media (min-width: map.get($screen, laptop))  {
+    .homecard {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        gap: 60px;
+
+        &--reverse {
+            flex-direction: row-reverse;
+        }
+
+        &__image {
+            @include size(500px, 320px);
+        }
+
+        &__text {
+            @include textDesktop;
+        }
+    }
+}

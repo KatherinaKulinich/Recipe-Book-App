@@ -1,0 +1,12 @@
+@use '../../styles/variables';
+@use '../../styles/mixins';
+
+.tag {
+    display: block;
+    text-decoration: none;
+    color: #FFFFFF;
+    padding: 4px 4px;
+    border-radius: 25px;
+    background: $colorGoldLight;
+    @include font($textFont, 400, 12px, 15px);
+}

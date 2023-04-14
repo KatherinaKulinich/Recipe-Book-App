@@ -1,0 +1,65 @@
+@use '../../styles/variables';
+@use '../../styles/mixins';
+@use "sass:map";
+
+$screen: ("tablet": 768px,
+          "laptop": 1024px,
+          "desktop-hd": 1240px,
+          "desktop-sd": 1440px);
+
+.footer {
+    display: flex;
+    flex-direction: column;
+
+    &--dark {
+        color: $textColorLight;
+    }
+
+    &--light {
+        color: $textColorDark;
+    }
+
+    &__main {
+        width: 100%;
+        @include between;
+        @include paddingYY(30px, 20px);
+        border-bottom: $borderBottom;
+    }
+
+    &__copyright {
+        @include between;
+        gap: 20px;
+        @include paddingYY(20px, 30px);
+    }
+
+    &__text {
+        @include font($textFont, 400, 13px, 17px);
+        
+    }
+
+    &__socials {
+        display: flex;
+        gap: 15px;
+    }
+
+    &__social-item {
+        display: grid;
+        align-content: center;
+        justify-content: center;
+        @include size(30px, 30px);
+        border-radius: 50%;
+        background: $gold;
+
+        & svg path {
+            fill: #FFFFFF;
+        }
+    }
+}
+
+@media (min-width: map.get($screen, laptop)) {
+    .footer {
+        &__text {
+            @include font($textFont, 400, 16px, 21px);
+        }
+    }
+}

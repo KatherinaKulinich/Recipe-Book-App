@@ -1,0 +1,74 @@
+@use '../../styles/variables';
+@use '../../styles/mixins';
+@use "sass:map";
+
+$screen: ("tablet": 768px,
+          "laptop": 1024px,
+          "desktop-hd": 1240px,
+          "desktop-sd": 1440px);
+
+
+
+.logForm {
+    z-index: 10;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 700px;
+    border: 1px solid #FFFFFF;
+    background-color: rgba($color: #FFFFFF, $alpha: .2);
+    padding: 50px;
+    border-radius: 5px;
+
+    &__content {
+        @include column(40px);
+        align-items: center;
+    }
+
+    &__title {
+        @include textTitleMobile;
+        color: #FFFFFF;
+    }
+
+    &__text {
+        @include textMobile;
+        color: #FFFFFF;
+    }
+
+    &__switchField {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+    }
+
+    &__switchButton {
+        @include font($titleFont, 700, 18px, 22px);
+        color: $colorGoldLight;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+
+        &:hover {
+            color: $colorGoldMedium;
+        }
+    }
+
+}
+
+@media (min-width: map.get($screen, laptop)) {
+    .logForm{
+        &__title {
+            @include textTitleDesktop;
+        }
+
+        &__text {
+            @include textDesktop;
+        }
+
+        &__switchButton {
+            @include font($titleFont, 700, 26px, 32px);
+        }
+    }
+}

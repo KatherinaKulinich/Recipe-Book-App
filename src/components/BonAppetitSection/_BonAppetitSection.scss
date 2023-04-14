@@ -1,0 +1,109 @@
+@use '../../styles/variables';
+@use '../../styles/mixins';
+@use "sass:map";
+
+$screen: ("tablet": 768px,
+          "laptop": 1024px,
+          "desktop-hd": 1240px,
+          "desktop-sd": 1440px);
+
+.bonAppetit {
+    @include paddingYY(40px, 150px);
+    @include column(120px);
+    align-items: center;
+
+    &__title {
+        text-align: center;
+        @include textSubtitleDesktop;
+        @include goldText;
+        position: relative;
+
+        &::before {
+            @include spoon;
+        }
+    }
+
+    &__imagesList {
+        position: relative;
+        @include size(300px, 200px);
+    }
+
+    &__imageBox {
+        position: relative;
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            @include size(100%, 100%);
+            background: $gold;
+            z-index: 10;
+        }
+
+        &::before {
+            top: -20px;
+            left: -20px;
+        }
+
+        &::after {
+            bottom: -20px;
+            right: -20px;
+        }
+    }
+
+    &__image:nth-child(1) {
+        width: 300px;
+        height: 200px;
+        z-index: 20;
+        position: relative;
+    }
+
+    &__image:nth-child(2),
+    &__image:nth-child(3) {
+        display: none;
+    }
+}
+
+
+
+@media (min-width: map.get($screen, laptop)) {
+    .bonAppetit {
+
+        &__imagesList {
+            position: relative;
+            @include size(400px, 300px);
+        }
+
+        &__imageBox {
+            &::after {
+                right: -70px;
+            }
+        }
+
+        &__image:nth-child(1) {
+            width: 450px;
+            height: 300px;
+            z-index: 20;
+            position: relative;
+        }
+
+        &__image:nth-child(2),
+        &__image:nth-child(3) {
+            display: block;
+            z-index: 1;
+            position: absolute;
+            width: 250px;
+            height: 350px;
+        }
+
+        &__image:nth-child(2) {
+            bottom: 16px;
+            left: -240px;
+        }
+
+        &__image:nth-child(3) {
+            top: 20px;
+            right: -250px;
+        }
+    }
+}

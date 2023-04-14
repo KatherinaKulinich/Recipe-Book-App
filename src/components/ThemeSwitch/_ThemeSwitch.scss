@@ -1,0 +1,104 @@
+@use '../../styles/variables';
+@use "sass:map";
+
+$screen: ("tablet": 768px,
+          "laptop": 1024px,
+          "desktop-hd": 1240px,
+          "desktop-sd": 1440px);
+
+
+.theme {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    &--dark {
+        color: $textColorLight;
+    }
+    &--light {
+        color: $textColorDark;
+    }
+
+    &__text {
+        @include font($textFont, 400, 14px, 17px);
+    }
+}
+
+
+.switch {
+    font-size: 17px;
+    position: relative;
+    display: inline-block;
+    width: 85px;
+    height: 34px;
+    overflow: hidden;
+    
+    & > input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    &__slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: $bgColorDarkSecondary;
+        transition: .4s;
+        border-radius: 30px;
+
+        &::before {
+            content: "";
+            position: absolute;
+            height: 24px;
+            width: 24px;
+            border-radius: 20px;
+            left: 6px;
+            bottom: 5px;
+            background: $gold;
+            transition: .4s;
+        }
+    }
+
+    & > input:checked + &__slider::before {
+         transform: translateX(3em) rotate(90deg);
+    }
+    & > input:checked + &__slider {
+          background-color: #fefefc;
+    }
+
+    &__text {
+        position: absolute;
+        top: 50%;
+        pointer-events: none;
+        font-size: 11px;
+        text-transform: uppercase;
+        transform: translateY(-50%);
+        transition: .4s;
+
+        &--light {
+            left: 13px;
+            transform: translateX(-3rem) translateY(-50%);
+            color: $bgColorDark;
+        }
+
+        &--dark {
+            color: $bgColorLight;
+            right: 13px;
+        }
+    }
+
+    & > input:checked ~ &__text--dark {
+        transform: translateX(3rem) translateY(-50%);
+    }
+
+    & > input:checked ~ &__text--light {
+        transform: translateX(0) translateY(-50%);
+    }
+}
+
+
+

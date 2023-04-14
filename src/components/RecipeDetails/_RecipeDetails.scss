@@ -1,0 +1,259 @@
+@use '../../styles/variables';
+@use '../../styles/mixins';
+@use "sass:map";
+
+$screen: ("tablet": 768px,
+          "laptop": 1024px,
+          "desktop-hd": 1240px,
+          "desktop-sd": 1440px);
+
+.recipeDetails {
+    width: 100%;
+    padding: 50px 0;
+    @include column(50px);
+    align-items: center;
+    
+
+    &--dark {
+        color: $textColorLight;
+    }
+
+    &--light {
+        color: $textColorDark;
+    }
+
+    &__recipeName,
+    &__subtitle {
+        @include goldText;
+        position: relative;
+
+        &::before {
+            @include spoon;
+        }
+    }
+
+    &__recipeName {
+        @include textTitleMobile;
+    }
+
+    &__subtitle {
+        @include textSubtitleMobile;
+        
+    }
+
+    &__mainInfo {
+        text-align: center;
+    }
+
+    &__content {
+        @include column(20px);
+        align-items: center;
+        width: 100%;
+    }
+
+
+    &__carousel, 
+    &__image {
+        width: 300px!important;
+        height: 300px!important;
+    }
+
+    &__created-text {
+        @include font($titleFont, 400, 18px, 24px);
+        color: $colorGoldLight;  
+    }
+
+    &__header {
+        @include column(30px);
+        align-items: center;
+        width: 100%;
+    }
+
+    &__tagsList {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    &__description {
+        @include column(60px);
+        align-items: center;
+        width: 100%;
+    }
+
+    &__information {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+
+        & > div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    }
+
+    &__category {
+        @include font($titleFont, 400, 24px, 30px);
+        color: $colorGoldLight;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    &__contentBlock {
+        width: 100%;
+        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+    }
+
+    &__contentColumn {
+        @include column(50px);
+        width: 100%;
+
+        & video {
+            align-self: center;
+        }
+    }
+
+    &__subtitle {
+        text-align: center; 
+    }
+
+    &__contentList {
+        @include column(30px);
+        margin: 0;
+        padding: 0;
+
+        & li {
+            list-style-type: none;
+        }
+    }
+
+    &__ingredientItem,
+    &__recipeDescription,
+    &__stepItem {
+        @include textMobile;
+    }
+
+    &__ingredientItem {
+        display: flex;
+        gap: 20px;
+
+        & > span {
+            width: 100%;
+            padding-bottom: 7px;
+            border-bottom: $borderBottom;
+        }
+    }
+
+    &__separator {
+        display: none;
+    }
+
+    &__stepItem {
+        display: flex;
+        align-items: center;
+        gap: 50px;
+        padding-left: 20px;
+
+        & span {
+            @include font($textFont, 700, 18px, 22px);
+            @include goldText;
+            position: relative;
+
+            &::before {
+                content: url('./assets/svg/step.svg');
+                background-size: 30px 30px;
+                display: block;
+                @include size(30px, 30px);
+                position: absolute;
+                transform: scale(.55);
+                top: -18px;
+                left: -22px;
+            }
+        }
+    }
+}
+
+@media (min-width: map.get($screen, tablet)) {
+    .recipeDetails {
+       &__carousel, 
+        &__image {
+            width: 500px!important;
+            height: 450px!important;
+        }
+    }
+}
+
+@media (min-width: map.get($screen, laptop)) {
+    .recipeDetails {
+        &__recipeName {
+            @include textTitleDesktop;
+            max-width: 600px;
+        }
+
+        &__subtitle {
+            @include textSubtitleDesktop;
+        }
+
+        &__content {
+            gap: 40px;
+        }
+
+        &__created {
+            font-size: 24px;
+            line-height: 30px;
+        }
+
+
+        &__information {
+            @include center;
+            flex-direction: row;
+            gap: 150px;
+        }
+
+        &__contentBlock {
+            flex-direction: row;
+            
+            gap: 50px;
+
+            &:nth-last-child(1) {
+                align-items: center;
+            }
+        }
+
+        &__contentColumn {
+            @include column(50px);
+            width: calc(50% - 70px);
+
+            & video {
+                align-self: center;
+            }
+        }
+
+        &__ingredientItem,
+        &__recipeDescription,
+        &__stepItem {
+            @include textDesktop;
+        }
+
+        &__separator {
+            display: block;
+            @include bgImage('./assets/images/separator.png');
+            background-size: contain;
+            @include size(50px, 350px);
+        }
+
+        &__carousel, 
+        &__image {
+            width: 600px!important;
+            height: 600px!important;
+        }
+    }
+
+}

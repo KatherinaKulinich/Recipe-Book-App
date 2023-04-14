@@ -1,0 +1,61 @@
+@use '../../styles/variables';
+@use '../../styles/mixins';
+@use "sass:map";
+
+$screen: ("tablet": 768px,
+          "laptop": 1024px,
+          "desktop-hd": 1240px,
+          "desktop-sd": 1440px);
+
+.recipesList {
+    padding: 60px 0;
+    @include column(60px);
+    align-items: center;
+    
+
+    &__header {
+        @include column(7px);
+        align-items: center;
+    }
+
+    &__title {
+        text-align: center;
+        @include textTitleMobile;
+        @include goldText;
+        position: relative;
+
+        &::before {
+            @include spoon;
+        }
+    }
+
+    &__subtitle {
+        @include font($titleFont, 400, 24px, 30px);
+        color: #D1B464;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    &__list {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+        justify-content: center;
+        gap: 50px;
+    }
+
+    &__text {
+        @include textTitleMobile;
+        color: $colorGoldLight;
+        text-align: center;
+    }
+}
+
+@media (min-width: map.get($screen, laptop)) {
+    .recipesList {
+        &__title {
+            @include textTitleDesktop;
+        }
+    }
+}

@@ -1,0 +1,47 @@
+@use '../../styles/variables';
+@use '../../styles/mixins';
+@use "sass:map";
+
+$screen: ("tablet": 768px,
+          "laptop": 1024px,
+          "desktop-hd": 1240px,
+          "desktop-sd": 1440px);
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    &--dark {
+        color: $textColorLight;
+    }
+    &--light {
+        color: $textColorDark;
+    }
+
+    &__icon {
+        @include size(50px, 50px);
+    }
+
+    &__text {
+        @include font($logoFont, 700, 18px, 22px);
+        text-transform: uppercase;
+
+        & > span {
+            display: block;
+            @include goldText;
+        }
+    }
+}
+
+@media (min-width: map.get($screen, laptop)) {
+    .logo {
+        &__icon {
+            @include size(80px, 80px);
+        }
+
+        &__text {
+            @include font($logoFont, 700, 24px, 28px);
+        }
+    }
+}
