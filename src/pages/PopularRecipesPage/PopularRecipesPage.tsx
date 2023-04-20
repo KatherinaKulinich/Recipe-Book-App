@@ -1,5 +1,6 @@
 import { message, Pagination } from "antd";
 import { useCallback, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { FilterButton } from "../../components/buttons/FilterButton/FilterButton";
 import { RecipeCard } from "../../components/cards/RecipeCard/RecipeCard"
 import { Loader } from "../../components/Loader/Loader";
@@ -9,7 +10,7 @@ import { useFilter } from "../../hooks/useFilter";
 import { usePagination } from "../../hooks/usePagination";
 import { useAuth } from "../../hooks/useUserAuth";
 import { fetchFavoritesRecipes } from "../../rdx/slices/favoritesRecipesReducer";
-import { chosenCategory, chosenRecipe, fetchRecipes  } from "../../rdx/slices/recipesReducer";
+import { chosenCategory, chosenRecipe, fetchRecipes, getLoading  } from "../../rdx/slices/recipesReducer";
 import { Recipe } from "../../types";
 import { getUniqueValues } from "../../utils/uniqueValues";
 
@@ -30,11 +31,13 @@ export const PopularRecipesPage:React.FC = () => {
     const popular = recipes.filter((item:any) => (item.user_ratings?.score >= 0.85));
     const uniqueRecipes = getUniqueValues(filtered)
     const {isAuth, id : userId } = useAuth();
+    const navigate = useNavigate();
     
 
     useEffect(() => {
+        dispatch(getLoading())
         dispatch(fetchRecipes('', start))
-    },[dispatch, start, checkingRecipes, favoritesRecipes])
+    },[dispatch, start])
     
     useEffect(()=> {
         filterRecipes()
@@ -65,7 +68,9 @@ export const PopularRecipesPage:React.FC = () => {
             }
             onAddRecipeToFav(item)
             message.success('Recipe added to favorites')
+            return
         }
+        navigate('/login')
 
     }, [userId, checkingRecipes])
 
@@ -118,13 +123,15 @@ export const PopularRecipesPage:React.FC = () => {
                         </div>
                     )}
                 </div>
-                <Pagination 
-                    defaultCurrent={1} 
-                    total={pagesCount} 
-                    onChange={onChangePage}
-                    current={currentPage}
-                    simple
-                />
+                {loading === false && (
+                    <Pagination 
+                        defaultCurrent={1} 
+                        total={pagesCount} 
+                        onChange={onChangePage}
+                        current={currentPage}
+                        simple
+                    />
+                )}
             </div>
     )
 }

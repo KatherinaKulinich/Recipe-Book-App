@@ -1,10 +1,10 @@
 import { useCallback, useEffect } from "react";
-import { Link,  useParams } from "react-router-dom"
+import { Link,  useNavigate,  useParams } from "react-router-dom"
 import { RecipeCard } from "../../components/cards/RecipeCard/RecipeCard"
 import { Loader } from "../../components/Loader/Loader";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { useAuth } from "../../hooks/useUserAuth";
-import { chosenRecipe, fetchRecipes } from "../../rdx/slices/recipesReducer";
+import { chosenRecipe, fetchRecipes, getLoading } from "../../rdx/slices/recipesReducer";
 import { useFavoritesRecipes } from "../../hooks/useFavoritesRecipes";
 import { fetchFavoritesRecipes, getFavId } from "../../rdx/slices/favoritesRecipesReducer";
 import { FilterButton } from "../../components/buttons/FilterButton/FilterButton";
@@ -31,6 +31,7 @@ export const RecipesListPage:React.FC = () => {
     const {tag} = useParams()
     const {searchValue, setFiltered, onShowFilteredRecipes, filtered, onChangeSelectValue, onFilterRecipes, openFilter} = useFilter()
     const { start, pagesCount, onChangePage, currentPage } = usePagination()
+    const navigate = useNavigate();
 
     const uniqueRecipes = getUniqueValues(filtered)
     
@@ -38,10 +39,12 @@ export const RecipesListPage:React.FC = () => {
 
     useEffect(() => {
         if (categoryName) {
+            dispatch(getLoading())
             dispatch(fetchRecipes(`q=${categoryName}`, start))
             return
         }
         if (tag) {
+            dispatch(getLoading())
             dispatch(fetchRecipes(`tags=${tag}`, start))
         }
     }, [dispatch, categoryName, start, tag])
@@ -59,7 +62,7 @@ export const RecipesListPage:React.FC = () => {
     }, [dispatch, userId, recipes, searchValue])
     
 
-    
+
     const addRecipeToFavorites = useCallback((item:Recipe) => {
 
         if (userId) {
@@ -72,7 +75,9 @@ export const RecipesListPage:React.FC = () => {
             }
             onAddRecipeToFav(item)
             message.success('Recipe added to favorites')
+            return
         }
+        navigate('/login')
 
     }, [userId, checkingRecipes])
     
@@ -134,13 +139,15 @@ export const RecipesListPage:React.FC = () => {
                     </p>
                 </div>
             )}
-            <Pagination 
-                defaultCurrent={1} 
-                total={pagesCount} 
-                onChange={onChangePage}
-                current={currentPage}
-                simple
-            />
+            {loading === false && (
+                <Pagination 
+                    defaultCurrent={1} 
+                    total={pagesCount} 
+                    onChange={onChangePage}
+                    current={currentPage}
+                    simple
+                />
+            )}
         </div>
     )
 }

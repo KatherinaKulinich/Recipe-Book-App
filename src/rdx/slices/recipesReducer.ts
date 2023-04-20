@@ -66,6 +66,10 @@ const recipesSlice = createSlice({
             state.recipes = action.payload;
             state.loading = false;
         },
+        getLoading(state) {
+            state.recipes = [];
+            state.loading = true;
+        },
         chosenCategory(state, action: PayloadAction<string>) {
             state.category = action.payload
         },
@@ -115,6 +119,6 @@ export const fetchRecipes = (request:string, start:number) => {
 
 
 
-export const { getRecipes, chosenCategory, getError, chosenRecipe, getTotalRecipes} = recipesSlice.actions;
+export const { getRecipes, chosenCategory, getError, chosenRecipe, getTotalRecipes, getLoading} = recipesSlice.actions;
 export default recipesSlice.reducer;
 
