@@ -21,7 +21,6 @@ const videos = [video1, video2, video3, video3, video4, video5, video6];
 export const RecipeDetailsPage:React.FC = () => {
 
     const dispatch = useAppDispatch();
-    const { onJustAddRecipeToFavorites, checkingRecipes } = useFavoritesRecipes();
     const { id : userId } = useAuth();
 
     const selectedCategory = useAppSelector(state => state.recipes.category);
@@ -49,9 +48,7 @@ export const RecipeDetailsPage:React.FC = () => {
                     recipeDate={selectedRecipe?.created_at}
                     recipeDescription={selectedRecipe?.description ? selectedRecipe.description : 'This recipe does not contain a description.'}
                     recipeVideo={selectedRecipe?.renditions ? selectedRecipe.renditions[0] ? selectedRecipe.renditions[0].url : getRandomVideo(videos) : getRandomVideo(videos)}
-                    recipeInstructions={selectedRecipe?.instructions} 
-                    // toogleFavRecipe={() => onJustAddRecipeToFavorites(selectedRecipe)}  
-                    // buttonText={checkingRecipes.includes(selectedRecipe.created_at) ? 'In favorites' : 'Add to favorites'}              
+                    recipeInstructions={selectedRecipe?.instructions}             
                 />
             )}
         </>
