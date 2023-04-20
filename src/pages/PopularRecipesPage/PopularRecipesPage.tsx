@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { useFavoritesRecipes } from "../../hooks/useFavoritesRecipes";
 import { useFilter } from "../../hooks/useFilter";
 import { usePagination } from "../../hooks/usePagination";
-import { chosenRecipe, fetchRecipes  } from "../../rdx/slices/recipesReducer";
+import { chosenCategory, chosenRecipe, fetchRecipes  } from "../../rdx/slices/recipesReducer";
 import { Recipe } from "../../types";
 import { getUniqueValues } from "../../utils/uniqueValues";
 
@@ -43,6 +43,11 @@ export const PopularRecipesPage:React.FC = () => {
         onShowFilteredRecipes(popular)
     }, [popular])
 
+    const onShowRecipeDetails = useCallback((item:Recipe) => {
+        dispatch(chosenRecipe(item))
+        dispatch(chosenCategory(''))
+    },[])
+
 
 
     return (
@@ -68,7 +73,7 @@ export const PopularRecipesPage:React.FC = () => {
                                     key={item.id}
                                 >
                                     <RecipeCard 
-                                        onSaveRecipe={() => dispatch(chosenRecipe(item))}
+                                        onSaveRecipe={() => onShowRecipeDetails(item)}
                                         recipeName={item.name}
                                         recipeImagePath={item.thumbnail_url}
                                         recipeRate={item.user_ratings}

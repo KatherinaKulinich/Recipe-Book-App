@@ -28,15 +28,15 @@ interface RecipeDetailsProps {
     recipeDescription: string;
     recipeVideo: string;
     recipeInstructions: RecipeInstruction[];
-    toogleFavRecipe:  (recipe: Recipe) => void;
-    buttonText: string;
+    // toogleFavRecipe:  (recipe: Recipe) => void;
+    // buttonText: string;
 }
 
 
 
 
 export const RecipeDetails:React.FC<RecipeDetailsProps> = 
-    ({recipeCategory, recipeName, recipeRate, recipeImagePath, recipeTags, recipeNutrition, recipeDate, recipeIngredients, recipeDescription, recipeVideo, recipeInstructions, toogleFavRecipe, buttonText}) => {
+    ({recipeCategory, recipeName, recipeRate, recipeImagePath, recipeTags, recipeNutrition, recipeDate, recipeIngredients, recipeDescription, recipeVideo, recipeInstructions}) => {
 
     const { theme } = useContext(ThemeContext);
     const { goBack } = useGoBack();
@@ -139,13 +139,13 @@ export const RecipeDetails:React.FC<RecipeDetailsProps> =
                                     )}
                                 </div>
                             </Tooltip>
-                            {recipeRate && (
+                            {/* {recipeRate && (
                                 <Button 
                                     buttonText={buttonText} 
                                     buttonType={"button"}
                                     onToggleRecipe={toogleFavRecipe}
                                 />
-                           )}
+                            )} */}
                             <div>
                                 <IconContext.Provider value={{ color: "#9f7928" }}>
                                     <RxCalendar/>

@@ -4,7 +4,7 @@ import { FaPlus } from "react-icons/Fa";
 import { RecipeCard } from "../../components/cards/RecipeCard/RecipeCard"
 import { DrawerWindow } from "../../components/Drawer/Drawer";
 import { useAppDispatch, useAppSelector  } from "../../hooks/hooks";
-import { chosenRecipe } from "../../rdx/slices/recipesReducer";
+import { chosenCategory, chosenRecipe } from "../../rdx/slices/recipesReducer";
 import { Loader } from "../../components/Loader/Loader";
 import { useUserCreatedRecipes } from "../../hooks/useUserCreatedRecipes";
 import { useCallback, useEffect, useState } from "react";
@@ -14,6 +14,7 @@ import { useFilter } from "../../hooks/useFilter";
 import { useGetCategories } from "../../hooks/useGetCategories";
 import { ModalForEditing } from "../../components/ModalForEditing/ModalForEditing";
 import { useEditRecipe } from "../../hooks/useEditRecipe";
+import { Recipe } from "../../types";
 
 
 
@@ -74,6 +75,11 @@ export const MyRecipesPage: React.FC = () => {
         onClose()
         setFiltered(userRecipes)
     }
+
+    const onShowRecipeDetails = useCallback((item:Recipe) => {
+        dispatch(chosenRecipe(item))
+        dispatch(chosenCategory(''))
+    },[])
   
     
 
@@ -122,7 +128,7 @@ export const MyRecipesPage: React.FC = () => {
                                         key={`${item.id}${item.name}`}
                                     >
                                         <RecipeCard 
-                                            onSaveRecipe={() => dispatch(chosenRecipe(item))}
+                                            onSaveRecipe={() => onShowRecipeDetails(item)}
                                             recipeName={item.name}
                                             recipeImagePath={item.thumbnail_url}
                                             recipeRate={item.user_ratings?.score}
@@ -161,7 +167,7 @@ export const MyRecipesPage: React.FC = () => {
                                 </p>
                             </div>
                         )}
-                        {userRecipes?.length === 0 && (
+                        {userRecipes?.length === 0 && loading === false && (
                             <div>
                                 <p className="myRecipes__text"> 
                                     You don't have any own recipes. Create your first recipe now!

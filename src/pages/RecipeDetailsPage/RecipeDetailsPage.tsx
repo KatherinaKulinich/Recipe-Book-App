@@ -50,8 +50,8 @@ export const RecipeDetailsPage:React.FC = () => {
                     recipeDescription={selectedRecipe?.description ? selectedRecipe.description : 'This recipe does not contain a description.'}
                     recipeVideo={selectedRecipe?.renditions ? selectedRecipe.renditions[0] ? selectedRecipe.renditions[0].url : getRandomVideo(videos) : getRandomVideo(videos)}
                     recipeInstructions={selectedRecipe?.instructions} 
-                    toogleFavRecipe={() => onJustAddRecipeToFavorites(selectedRecipe)}  
-                    buttonText={checkingRecipes.includes(selectedRecipe.created_at) ? 'In favorites' : 'Add to favorites'}              
+                    // toogleFavRecipe={() => onJustAddRecipeToFavorites(selectedRecipe)}  
+                    // buttonText={checkingRecipes.includes(selectedRecipe.created_at) ? 'In favorites' : 'Add to favorites'}              
                 />
             )}
         </>
