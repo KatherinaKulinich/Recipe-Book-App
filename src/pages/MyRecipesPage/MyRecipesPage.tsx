@@ -1,4 +1,4 @@
-import {  Form, Popconfirm, Select} from "antd";
+import { Popconfirm, Select} from "antd";
 import { IconContext } from "react-icons";
 import { FaPlus } from "react-icons/Fa";
 import { RecipeCard } from "../../components/cards/RecipeCard/RecipeCard"
@@ -26,11 +26,11 @@ export const MyRecipesPage: React.FC = () => {
     const loading = useAppSelector(state => state.created.loading);
     const error = useAppSelector(state => state.created.errorMessage);
 
-    const { userRecipes, onChangeFiles, onDeleteRecipe, fileList, onUploadRecipe, imageUpload } = useUserCreatedRecipes();
+    const { userRecipes, onChangeFiles, onDeleteRecipe, fileList, onUploadRecipe } = useUserCreatedRecipes();
     const { searchValue, setFiltered, onShowFilteredRecipes, filtered, onChangeSelectValue, onFilterRecipes, openFilter, onChangeCategoryName, onShowRecipesByCategories, categoryValue } = useFilter()
     const { categories } = useGetCategories()
     const { isModalOpen, onCloseModal, onOpenModal, onSaveRecipeChanges, recipeToEdit } = useEditRecipe();
-    const [form] = Form.useForm();
+
 
     const options = categories.map((item:any) => {
             return {
@@ -69,17 +69,12 @@ export const MyRecipesPage: React.FC = () => {
 
 
 
-    const onFinish = useCallback((values:any) => {
-        console.warn(values);
-        
+    const onFinish = (values:any) => {
         onUploadRecipe(values);
-        form.resetFields()
-        
         onClose()
         setFiltered(userRecipes)
-    }, [form, imageUpload])
-
-    
+    }
+  
     
 
     return (
@@ -166,6 +161,13 @@ export const MyRecipesPage: React.FC = () => {
                                 </p>
                             </div>
                         )}
+                        {userRecipes?.length === 0 && (
+                            <div>
+                                <p className="myRecipes__text"> 
+                                    You don't have any own recipes. Create your first recipe now!
+                                </p>
+                            </div>
+                        )}
                         {error && (
                             <div>
                                 <p className="myRecipes__text"> 
@@ -181,14 +183,12 @@ export const MyRecipesPage: React.FC = () => {
                     onFinish={onFinish}
                     onChangeImg={onChangeFiles}
                     fileList={fileList}
-                    form={form}
                 />
                 <ModalForEditing 
                     onCloseModal={onCloseModal} 
                     onSaveChanges={onSaveRecipeChanges} 
                     isModalOpen={isModalOpen} 
                     recipeToEdit={recipeToEdit}
-                    form={form}
                 />
             </>
         )

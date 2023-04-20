@@ -25,6 +25,7 @@ export const FormField:React.FC<FormFieldProps> = (
                 placeholder={inputPlaceholder}
                 value={inputValue}
                 onChange={onChangeHandler}
+                autoComplete="off"
             />
         </div>
     )

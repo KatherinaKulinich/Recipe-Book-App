@@ -74,8 +74,8 @@ export const useEditRecipe = () => {
                                 })
             await message.loading('Loading edits...')
             await setIsModalOpen(false);
-            await message.success('Recipe has been changed!')
             await dispatch(fetchUserRecipes(userId))
+            await message.success('Recipe has been changed!')
         }
     };
 

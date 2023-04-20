@@ -12,16 +12,17 @@ interface ModalForEditingProps {
     onSaveChanges: (values: any) => void;
     isModalOpen: boolean;
     recipeToEdit: Recipe;
-    form: FormInstance<NewType>;
 }
 
 
 
-export const ModalForEditing:React.FC<ModalForEditingProps> = ({onCloseModal,  onSaveChanges, isModalOpen, recipeToEdit, form}) => {
+export const ModalForEditing:React.FC<ModalForEditingProps> = ({onCloseModal,  onSaveChanges, isModalOpen, recipeToEdit}) => {
    
     const { name, description, instructions, sections} = recipeToEdit;
     const instructionsValues = instructions.map((item) => item.display_text)
     const sectionsValues = sections.map((item:any) => item.components.raw_text)
+
+    const [form] = Form.useForm();
 
     
 
@@ -68,88 +69,100 @@ export const ModalForEditing:React.FC<ModalForEditingProps> = ({onCloseModal,  o
             </Row>
             <Row gutter={24}>
                 <Col span={24}>
-                    <Form
-                        layout="vertical"
-                        onFinish={onSaveChanges}
-                        name='editingForm'
-                        form={form}
+                    <Form.Provider
+                        onFormFinish={(name, {forms}) => {
+                            if (name !== 'editingForm') return;
+
+                            const values = forms.editingForm.getFieldsValue();
+                            onSaveChanges(values);
+                        }}
                     >
-                        <Space direction="vertical" size={'large'} style={{display: 'flex'}}>
-                            <Row gutter={24}>
-                                <Col span={24}>
-                                    <Title level={5}>
-                                        Recipe description:
-                                    </Title>
-                                    <Form.Item
-                                        name={'recipeDescription'}
-                                        initialValue={description}
-                                        style={{width: '100%'}}
-                                    >
-                                        <Input width={'100%'}/>
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                            <Row gutter={[24, 6]}>
-                                <Col xs={24} lg={12}>
-                                    <Title level={5}>
-                                        Recipe ingredients:
-                                    </Title>
-                                    <Form.List
-                                        name='recipeIngredients'
-                                        initialValue={sectionsValues}
-                                    >
-                                        {(sections) => (
-                                            <div>
-                                                {sections.map((item) => (
-                                                    <Form.Item
-                                                        {...item}
-                                                    >
-                                                        <Input />
-                                                    </Form.Item>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </Form.List>
-                                </Col>
-                                <Col xs={24} lg={12}>
-                                    <Title level={5}>
-                                        Recipe instructions:
-                                    </Title>
-                                    <Form.List
-                                        name='recipeInstructions'
-                                        initialValue={instructionsValues}
-                                    >
-                                        {(sections) => (
-                                            <div>
-                                                {sections.map((item) => (
-                                                    <Form.Item
-                                                        {...item}
-                                                    >
-                                                        <Input />
-                                                    </Form.Item>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </Form.List>
-                                </Col>
-                            </Row>
-                            <Row 
-                                gutter={24} 
-                                justify='center'
+                        <Form
+                            layout="vertical"
+                            name='editingForm'
+                            form={form}
+                        >
+                            <Space 
+                                direction="vertical" 
+                                size={'large'} 
+                                style={{display: 'flex'}}
                             >
-                                <Col>
-                                    <Form.Item>
-                                        <Button 
-                                            type="primary"
-                                            htmlType="submit"
+                                <Row gutter={24}>
+                                    <Col span={24}>
+                                        <Title level={5}>
+                                            Recipe description:
+                                        </Title>
+                                        <Form.Item
+                                            name={'recipeDescription'}
+                                            initialValue={description}
+                                            style={{width: '100%'}}
                                         >
-                                            Save changes
-                                        </Button>
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                        </Space>
-                    </Form>
+                                            <Input width={'100%'}/>
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                                <Row gutter={[24, 6]}>
+                                    <Col xs={24} lg={12}>
+                                        <Title level={5}>
+                                            Recipe ingredients:
+                                        </Title>
+                                        <Form.List
+                                            name='recipeIngredients'
+                                            initialValue={sectionsValues}
+                                        >
+                                            {(sections) => (
+                                                <div>
+                                                    {sections.map((item) => (
+                                                        <Form.Item
+                                                            {...item}
+                                                        >
+                                                            <Input />
+                                                        </Form.Item>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </Form.List>
+                                    </Col>
+                                    <Col xs={24} lg={12}>
+                                        <Title level={5}>
+                                            Recipe instructions:
+                                        </Title>
+                                        <Form.List
+                                            name='recipeInstructions'
+                                            initialValue={instructionsValues}
+                                        >
+                                            {(sections) => (
+                                                <div>
+                                                    {sections.map((item) => (
+                                                        <Form.Item
+                                                            {...item}
+                                                        >
+                                                            <Input />
+                                                        </Form.Item>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </Form.List>
+                                    </Col>
+                                </Row>
+                                <Row 
+                                    gutter={24} 
+                                    justify='center'
+                                >
+                                    <Col>
+                                        <Form.Item>
+                                            <Button 
+                                                type="primary"
+                                                htmlType="submit"
+                                            >
+                                                Save changes
+                                            </Button>
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                            </Space>
+                        </Form>
+                    </Form.Provider>
                 </Col>
             </Row>
         </Modal>
