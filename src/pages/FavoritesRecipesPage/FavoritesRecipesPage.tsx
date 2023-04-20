@@ -18,14 +18,14 @@ export const FavoritesRecipesPage:React.FC = () => {
     const {searchValue, setFiltered, onShowFilteredRecipes, filtered, onChangeSelectValue, onFilterRecipes, openFilter} = useFilter()
     const loading = useAppSelector(state => state.favorites.loading);
     const errorMessage = useAppSelector(state => state.favorites.errorMessage);
-
     const uniqueRecipes = getUniqueValues(filtered)
-  
+
 
     useEffect(() => {
         setFiltered(favoritesRecipes)
         onShowFilteredRecipes(favoritesRecipes)
     }, [favoritesRecipes, searchValue, checkingRecipes])
+
 
     
     return (

@@ -12,8 +12,7 @@ interface FavoritesRecipesState {
     favoritesRecipes: Recipe[];
     favOnPage: number[];
     loading: boolean;
-    errorMessage: string;
-    
+    errorMessage: string; 
 }
 
 
@@ -37,6 +36,7 @@ const favoritesRecipesSlice = createSlice({
             state.loading = false
         },
         getFavId(state) {
+            state.favOnPage = [];
             state.favoritesRecipes.map((item) => {
                 state.favOnPage.push(item.created_at)
             })
@@ -65,9 +65,10 @@ export const fetchFavoritesRecipes = (userId: string) => {
             return
         }
         
-        dispatch(getFavorites((querySnapshot.docs.map(doc => ({
+        await dispatch(getFavorites((querySnapshot.docs.map(doc => ({
                 id:doc.id,...doc.data() 
             })))))
+        await dispatch(getFavId())
     }
 }
 

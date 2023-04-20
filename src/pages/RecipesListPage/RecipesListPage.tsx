@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { Link,  useParams } from "react-router-dom"
 import { RecipeCard } from "../../components/cards/RecipeCard/RecipeCard"
 import { Loader } from "../../components/Loader/Loader";
@@ -10,7 +10,7 @@ import { fetchFavoritesRecipes, getFavId } from "../../rdx/slices/favoritesRecip
 import { FilterButton } from "../../components/buttons/FilterButton/FilterButton";
 import { useFilter } from "../../hooks/useFilter";
 import { Recipe } from "../../types";
-import { Pagination } from "antd";
+import { message, Pagination } from "antd";
 import { usePagination } from "../../hooks/usePagination";
 import { getUniqueValues } from "../../utils/uniqueValues";
 
@@ -26,7 +26,7 @@ export const RecipesListPage:React.FC = () => {
 
     const dispatch = useAppDispatch();
     const { id : userId } = useAuth();
-    const { checkingRecipes, onJustAddRecipeToFavorites } = useFavoritesRecipes();
+    const { checkingRecipes, onAddRecipeToFav } = useFavoritesRecipes();
     const {categoryName} = useParams()
     const {tag} = useParams()
     const {searchValue, setFiltered, onShowFilteredRecipes, filtered, onChangeSelectValue, onFilterRecipes, openFilter} = useFilter()
@@ -54,10 +54,28 @@ export const RecipesListPage:React.FC = () => {
             dispatch(fetchFavoritesRecipes(userId))
         }
 
-        dispatch(getFavId())
         setFiltered(recipes)
         onShowFilteredRecipes(recipes)
     }, [dispatch, userId, recipes, searchValue])
+    
+
+    
+    const addRecipeToFavorites = useCallback((item:Recipe) => {
+
+        if (userId) {
+            dispatch(fetchFavoritesRecipes(userId))
+
+            if (checkingRecipes.includes(item.created_at)) {
+    
+                message.error('This recipe had been already added')
+                return
+            }
+            onAddRecipeToFav(item)
+            message.success('Recipe added to favorites')
+        }
+
+    }, [userId, checkingRecipes])
+    
 
 
 
@@ -101,7 +119,7 @@ export const RecipesListPage:React.FC = () => {
                                 recipeDate={item.created_at}
                                 recipeNutrition={Object.keys(item.nutrition).length !== 0 ? item.nutrition : ''}
                                 linkPath={`${item.name}`} 
-                                onToggleFavRecipe={() => onJustAddRecipeToFavorites(item)}  
+                                onToggleFavRecipe={() => addRecipeToFavorites(item)}  
                                 tooltipText={checkingRecipes.includes(item.created_at) ? 'added' : 'add recipe to favorites'}   
                                 flagStyle={checkingRecipes.includes(item.created_at) ?  'recipeCard__flag--added' : ''}                           
                             />

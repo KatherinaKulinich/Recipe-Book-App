@@ -25,7 +25,6 @@ export const useFavoritesRecipes = () => {
     useEffect(()=> {
         if (userId) {
             dispatch(fetchFavoritesRecipes(userId))
-            dispatch(getFavId())
         }
     }, [dispatch, userId])
 
@@ -36,6 +35,8 @@ export const useFavoritesRecipes = () => {
     const onAddRecipeToFav = useCallback(
         async ({ name, description, sections, tags, nutrition, instructions, renditions, created_at, user_ratings, thumbnail_url}: Recipe)=> {
         
+        
+
         if (userId !== null) {
             await addDoc(collection(db, 'users', userId, 'favorites'), {
                 name,
@@ -69,6 +70,7 @@ export const useFavoritesRecipes = () => {
     const onToggleFavRecipe = useCallback((recipeItem:Recipe) => {
 
         if (isAuth && userId) {
+            dispatch(fetchFavoritesRecipes(userId))
 
             if (checkingRecipes.includes(recipeItem.created_at)) {
 
@@ -76,7 +78,6 @@ export const useFavoritesRecipes = () => {
                 message.success('Recipe removed from favorites')
 
                 dispatch(fetchFavoritesRecipes(userId))
-                dispatch(getFavId())
                 return
             }
 
@@ -84,7 +85,6 @@ export const useFavoritesRecipes = () => {
             message.success('Recipe added to favorites')
 
             dispatch(fetchFavoritesRecipes(userId))
-            dispatch(getFavId())
         
             return
         }
@@ -96,28 +96,28 @@ export const useFavoritesRecipes = () => {
 
 
     
-    const onJustAddRecipeToFavorites = useCallback((recipeItem:any) => {
+    // const onJustAddRecipeToFavorites = useCallback((recipeItem:any) => {
 
-        if (isAuth) {
+    //     if (isAuth && userId) {
+    //         dispatch(fetchFavoritesRecipes(userId))
 
-            if (checkingRecipes.includes(recipeItem.created_at)) {
-                message.error('This recipe had been already added')
-                return
-            }
+    //         if (checkingRecipes.includes(recipeItem.created_at)) {
 
-            onAddRecipeToFav(recipeItem)
-            message.success('Recipe added to favorites')
+    //             message.error('This recipe had been already added')
+    //             return
+    //         }
+
+    //         onAddRecipeToFav(recipeItem)
             
-            if (userId) {
-                dispatch(fetchFavoritesRecipes(userId))
-                dispatch(getFavId())
-            }
-            return
-        }
+    //         dispatch(fetchFavoritesRecipes(userId))
+    //         message.success('Recipe added to favorites')
+            
+    //         return
+    //     }
 
-        navigate('/login')
+    //     navigate('/login')
 
-    }, [dispatch, isAuth, userId])
+    // }, [dispatch, isAuth, userId])
 
     
 
@@ -128,7 +128,6 @@ export const useFavoritesRecipes = () => {
         onDeleteRecipeFromFav,
         onAddRecipeToFav,
         onToggleFavRecipe,
-        onJustAddRecipeToFavorites,
         checkingRecipes,
         favoritesRecipes
     }
