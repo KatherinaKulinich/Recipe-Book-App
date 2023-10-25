@@ -1,4 +1,4 @@
-import { Button, Form, Row, Col, Input, Select,  Drawer, Upload, InputNumber } from "antd";
+import { Button, Form, Row, Col, Input, Select,  Drawer, Upload, InputNumber, message } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { RcFile, UploadChangeParam, UploadFile } from "antd/es/upload";
 import ImgCrop from 'antd-img-crop';
@@ -6,21 +6,21 @@ import { useGetCategories } from "../../hooks/useGetCategories";
 const { Option } = Select;
 
 const formItemLayout = {
-  labelCol: {
-    xs: { span: 32 },
-    sm: { span: 24 },
-  },
-  wrapperCol: {
-    xs: { span: 32 },
-    sm: { span: 24 },
-  },
+    labelCol: {
+        xs: { span: 32 },
+        sm: { span: 24 },
+    },
+    wrapperCol: {
+        xs: { span: 32 },
+        sm: { span: 24 },
+    },
 };
 
 const formItemLayoutWithOutLabel = {
-  wrapperCol: {
-    xs: { span: 32, offset: 0 },
-    sm: { span: 24, offset: 0 },
-  },
+    wrapperCol: {
+        xs: { span: 32, offset: 0 },
+        sm: { span: 24, offset: 0 },
+    },
 };
 
 
@@ -39,12 +39,7 @@ interface DrawerProps {
 
 export const DrawerWindow: React.FC<DrawerProps> = ({onOpen, onClose, onFinish, onChangeImg, fileList}) => {
 
-    const STORAGE_BUCKET = import.meta.env.VITE_FIREBASE_STORAGE_BUCKET;
-    const url = `https://${STORAGE_BUCKET}`;
     const { categories } = useGetCategories();
-
-
-
 
     const onPreview = async (file: UploadFile) => {
         let src = file.url as string;
@@ -63,31 +58,13 @@ export const DrawerWindow: React.FC<DrawerProps> = ({onOpen, onClose, onFinish, 
     };
 
 
-
-
-
-    const onUploadImage = (options:any) => {
-
-        const { onSuccess, onError } = options;
-        const config:any = {
-            method: 'post',
-            mode: 'no-cors',
-            headers: {
-                'Content-type': "multipart/form-data",
-            },
+    const beforeUpload = (file: RcFile) => {
+        if (!["image/jpeg", "image/png", "image/jpg"].includes(file.type)) {
+            message.error(`${file.name} is not a valid image type`, 2);
+            return;
         }
-
-        try {
-            fetch(url, config)  
-            .then((responce) => {
-
-                onSuccess('Ok');
-            })
-        } catch (err) {
-            const error = new Error("Some error");
-            onError({ error });
-        }
-    }
+        return false;
+    };
 
 
 
@@ -145,12 +122,11 @@ export const DrawerWindow: React.FC<DrawerProps> = ({onOpen, onClose, onFinish, 
                                 <ImgCrop rotationSlider>
                                     <Upload
                                         method="post"
-                                        customRequest={onUploadImage}
-                                        action={url}
-                                        listType="picture-card"
                                         fileList={fileList}
-                                        onChange={onChangeImg}
+                                        listType="picture-card"
                                         onPreview={onPreview}
+                                        onChange={onChangeImg}
+                                        beforeUpload={beforeUpload}
                                     >
                                         {fileList.length < 3 && '+ Upload'}
                                     </Upload>

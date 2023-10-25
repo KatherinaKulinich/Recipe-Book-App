@@ -70,9 +70,9 @@ export const useUserCreatedRecipes = () => {
 
 
 
-    const onChangeFiles = ({fileList}:any) => {
-        setImageUpload(fileList)
-        setFileList(fileList);
+    const onChangeFiles = ({fileList: newFileList}:any) => {
+        setImageUpload(newFileList)
+        setFileList(newFileList);
     }
 
 
@@ -106,7 +106,6 @@ export const useUserCreatedRecipes = () => {
                 })
                 .then((doc) => docId = doc.id)
 
-            
                 imageUpload?.map((file:any) => {
                     const metadata = {
                             contentType: file.type,
@@ -116,7 +115,6 @@ export const useUserCreatedRecipes = () => {
 
                     uploadBytes(imageRef, file.originFileObj, metadata)
                     .then(async()=> {
-
                         const downloadURL = await getDownloadURL(imageRef);
                         await images.push(downloadURL)
                         await updateDoc(doc(db, 'users', userId, 'created', docId), {
