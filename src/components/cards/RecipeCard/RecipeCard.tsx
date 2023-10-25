@@ -66,9 +66,11 @@ export const RecipeCard:React.FC<RecipeCardProps> =
                                 style={{color: '#D1B464'}}
                             />
                         )}
-                        <h3 className="recipeCard__title">
-                            {recipeName}
-                        </h3>
+                        <div className="recipeCard__titleContainer">
+                            <h3 className="recipeCard__title">
+                                {recipeName}
+                            </h3>
+                        </div>
                         <div className="recipeCard__tagsList">
                             {recipeTags?.length > 0 && (
                                 visibleTags.map((item:RecipeTag) => (

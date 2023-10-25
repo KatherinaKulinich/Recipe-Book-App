@@ -44,28 +44,31 @@
     }
 
     &__image  {
-        height: 280px;
+        width: 100%;
+        min-height: 280px;
+        height: min(280px, 280px);
 
         & > img {
             width: 100%;
             height: 100%;
-            max-height: 280px;
+            object-fit: cover;
         }
-
     }
-
-
 
     &__content {
         width: 100%;
         height: 100%;
-        @include column(40px);
+        @include column(30px);
         align-items: center;
         position: relative; 
     }
 
+    &__titleContainer {
+        min-height: 100px;
+    }
+
     &__title {
-        @include font($titleFont, 700, 34px, 37px);
+        @include font($titleFont, 700, 28px, 37px);
         @include goldText;
         position: relative;
         text-align: center;
@@ -107,7 +110,6 @@
         &--added svg path {
             fill: #9f7928;
         }
-
     }
 
     &__control {
