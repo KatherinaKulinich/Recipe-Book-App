@@ -131,8 +131,7 @@
 
 
 
-<h4> 🍎 Recipe retrieval </h4>
-<p>To sum up, user is able to get recipes using 4 ways:</p>
+<h4> 🍎 Recipe retrieval (4 ways) </h4>
 
 <h6>🔎 Categories page</h6>
 <p>Select recipe from a wide range of categories</p>
